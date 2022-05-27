@@ -16,9 +16,12 @@ class CreateClientsTable extends Migration
         Schema::create('clients', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->string('address');
-            $table->string('cpf');
-            $table->string('cnpj');
+            $table->string('address')->nullable()->default(null);
+
+            $table->char('type'); // PF or PJ
+            $table->string('cpf')->nullable(); // null when type PJ
+            $table->string('cnpj')->nullable(); // null when type PF
+            
             $table->timestamps();
         });
     }
