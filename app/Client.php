@@ -24,11 +24,11 @@ class Client extends Model
     }
 
     /**
-     * Get all of the sales for the Client
+     * Get all of the sales_order for the Client
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function sales()
+    public function sales_order()
     {
         return $this->hasMany(Sale::class);
     }

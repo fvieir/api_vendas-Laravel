@@ -8,7 +8,8 @@ class Telephone extends Model
 {
     protected $fillable = [
         'number',
-        'type'
+        'type',
+        'client_id'
     ];
 
     /**
