@@ -4,14 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Client;
 use App\Http\Requests\ClientRequest;
-use App\Telephone;
+use App\Transformers\ClientTransformer;
 use Illuminate\Http\Request;
 
 class ClientController extends Controller
 {
+    private $transfomer;
+
     public function __construct(Client $client)
     {
         $this->client = $client;
+        $this->transfomer = new ClientTransformer();
     }
 
     public function index () 
@@ -19,36 +22,25 @@ class ClientController extends Controller
         return $this->client->get();
     }
 
-    public function store (ClientRequest $request) 
+    public function store (ClientRequest $request)
     {
         try {
-
             $name = request()->get('name');
             $type = request()->get('type');
             $address = request()->get('address');
-            $numberPhone = request()->get('number');
-            $typePhone = request()->get('type');
-            $t = ($type === 'PJ') ? 'cnpj' : 'cpf'; 
             $identification = ($type === 'PJ') ? $cpnj = request()->get('cnpj') : $cpf = request()->get('cpf');
+            $idNumber = ($type === 'PJ') ? 'cnpj' : 'cpf'; 
 
             $data = [
                 'name' => $name,
                 'type' => $type,
                 'address' => $address,
-                $t => $identification
+                $idNumber => $identification
             ];
 
             $client = Client::create($data);
 
-            if ($client && $numberPhone) {
-                Telephone::create([
-                    'number' => $numberPhone,
-                    'type' => $typePhone,
-                    'client_id' => $client->id
-                ]);
-            }
-
-            return response()->json($client, 200); 
+            return response()->json($client,201);
 
         } catch (\Exception $e) {
             return $e;

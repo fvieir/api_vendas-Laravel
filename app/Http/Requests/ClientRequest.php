@@ -38,6 +38,9 @@ class ClientRequest extends FormRequest
             'name.min' => 'Limite mínimo de :min caracteres',
             'type.required' => 'Campo :attribute é obrigatório',
             'cpf.required_if' => 'Campo :attribute é obrigatório, quando tipo for PF',
+            'cpf.unique' => 'Campo :attribute já esta cadastrado.',
+            'cnpj.required_if' => 'Campo :attribute é obrigatório, quando tipo for PF',
+            'cnpj.unique' => 'Campo :attribute já esta cadastrado.',
         ];
     }
 }
